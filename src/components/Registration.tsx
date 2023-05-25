@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.min.css";
 import { ChangeEvent, useState } from "react";
 import { signUp } from "../services/user-service";
+import { toast } from "react-toastify";
 
 const Registration = () => {
   const [userData, setUserData] = useState({
@@ -26,7 +27,7 @@ const Registration = () => {
     setUserData({ ...userData, [property]: event.target.value });
   };
 
-  const submitForm = (event: { preventDefault: () => void }) => {
+  const submitForm = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     if (error.isError) {
@@ -47,7 +48,8 @@ const Registration = () => {
         });
       });
 
-    alert("Registered Successfully");
+    toast.success("Regiseterd Successfully");
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     window.location.replace("/");
   };
 
@@ -87,7 +89,7 @@ const Registration = () => {
                           <i className="fa fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
-                              type="text"
+                              type="email"
                               id="email"
                               className="form-control"
                               placeholder="Your Email"
@@ -105,6 +107,7 @@ const Registration = () => {
                               id="password"
                               className="form-control"
                               placeholder="Your Password"
+                              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
                               required
                               onChange={(e) => handleChange(e, "password")}
                               value={userData.password}

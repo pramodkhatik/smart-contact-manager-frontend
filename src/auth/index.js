@@ -1,10 +1,11 @@
 // check authentication
-export const isLogged = () => {
+export const isLoggedIn = () => {
   let data = localStorage.getItem("data");
   if (data == null) {
     return false;
+  } else {
+    return true;
   }
-  return true;
 };
 
 // do login
@@ -16,7 +17,7 @@ export const doLogIn = (data, next) => {
 // do logout
 export const doLogOut = (next) => {
   localStorage.removeItem("data");
-  next();
+  // next();
 };
 
 // get current user

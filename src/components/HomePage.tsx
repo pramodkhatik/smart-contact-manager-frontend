@@ -1,6 +1,16 @@
 import "./HomePage.css";
+import { doLogOut } from "../auth";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
+  const handleLogOut = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    toast.error("Logged Out");
+    doLogOut();
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    window.location.replace("/");
+  };
+
   return (
     <>
       <section className="vb-100">
@@ -15,13 +25,17 @@ const HomePage = () => {
                 <h1>Smart Contact Manager</h1>
               </a>
               <div className="topnav">
-                <a className="active" style={{ color: "white" }} href="/home">
+                <a
+                  className="active"
+                  style={{ color: "white" }}
+                  href="/user/home"
+                >
                   Home
                 </a>
-                <a href="/addContact" style={{ color: "white" }}>
+                <a href="/user/addContact" style={{ color: "white" }}>
                   Add Contact
                 </a>
-                <a href="/" style={{ color: "white" }}>
+                <a style={{ color: "white" }} onClick={handleLogOut}>
                   Logout
                 </a>
               </div>

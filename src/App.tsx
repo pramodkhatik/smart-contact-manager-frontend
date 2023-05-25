@@ -1,20 +1,28 @@
 import Registration from "./components/Registration";
 import Login from "./components/Login";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Routes } from "react-router";
+import { Route, BrowserRouter } from "react-router-dom";
+import { Navigate, Routes } from "react-router";
 import HomePage from "./components/HomePage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css";
+import PrivateRouter from "./components/PrivateRouter";
 import AddContact from "./components/AddContact";
+import DefaultRouter from "./components/DefaultRouter";
 
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
+      <ToastContainer position="bottom-center" />
       <Routes>
-        <Route path="/" Component={Login} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" Component={Login} />
         <Route path="/register" Component={Registration} />
-        <Route path="/home" Component={HomePage} />
-        <Route path="/addContact" Component={AddContact} />
+        <Route path="/user" Component={PrivateRouter}>
+          <Route path="home" Component={HomePage} />
+          <Route path="addContact" Component={AddContact}></Route>
+        </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 
