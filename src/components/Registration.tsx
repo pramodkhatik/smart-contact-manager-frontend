@@ -15,7 +15,7 @@ const Registration = () => {
   });
 
   const [error, setError] = useState({ errors: {}, isError: false });
-
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   //   useEffect(() => {
   //     console.log(userData);
   //   }, [userData]);
@@ -30,6 +30,43 @@ const Registration = () => {
   const submitForm = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
+    const validationErrors: { [key: string]: string } = {};
+    if (userData.name.trim() === "") {
+      validationErrors.name = "Name is required";
+    } else if (userData.name.length < 3) {
+      validationErrors.name = "Name Must be at least 3 charaters long";
+    } else if (!/^[a-zA-Z\s]+$/.test(userData.name)) {
+      validationErrors.name = "Name can only contain letters and spaces";
+    }
+    if (userData.email.trim() === "") {
+      validationErrors.email = "Email is required";
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(userData.email)
+    ) {
+      validationErrors.email = "Please insert valid email address";
+    }
+
+    if (userData.password.trim() === "") {
+      validationErrors.password = "Password is required";
+    } else if (userData.password.length < 8) {
+      validationErrors.password = "Password should have: at least 8 characters";
+    } else if (!/[A-Z]/.test(userData.password)) {
+      validationErrors.password =
+        "Password should have: at least 1 uppercase letter";
+    } else if (!/[a-z]/.test(userData.password)) {
+      validationErrors.password =
+        "Password should have: at least 1 lowercase letter";
+    } else if (!/[0-9]/.test(userData.password)) {
+      validationErrors.password = "Password should have: at least 1 digit";
+    } else if (!/[!@#$%^&*_=+-]/.test(userData.password)) {
+      validationErrors.password =
+        "Password should have: at least 1 special Character";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     if (error.isError) {
       return;
     }
@@ -98,24 +135,32 @@ const Registration = () => {
                               id="name"
                               className="form-control"
                               placeholder="Your Name"
-                              required
                               onChange={(e) => handleChange(e, "name")}
                               value={userData.name}
                             />
+                            {errors.name && (
+                              <span className="error-message">
+                                {errors.name}
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-4">
                           <i className="fa fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
-                              type="email"
+                              type="text"
                               id="email"
                               className="form-control"
                               placeholder="Your Email"
-                              required
                               onChange={(e) => handleChange(e, "email")}
                               value={userData.email}
                             />
+                            {errors.email && (
+                              <span className="error-message">
+                                {errors.email}
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-4">
@@ -126,11 +171,16 @@ const Registration = () => {
                               id="password"
                               className="form-control"
                               placeholder="Your Password"
-                              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
-                              required
+                              //pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+
                               onChange={(e) => handleChange(e, "password")}
                               value={userData.password}
                             />
+                            {errors.password && (
+                              <span className="error-message">
+                                {errors.password}
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-4">
@@ -153,8 +203,14 @@ const Registration = () => {
                               id="about"
                               name="about"
                               rows={4}
-                              cols={40}
+                              cols={39}
                               maxLength={500}
+                              style={{
+                                minWidth: "fit-content",
+                                minHeight: "fit-content",
+                                marginLeft: "8px",
+                                marginRight: "20px",
+                              }}
                               onChange={(e) => handleChange(e, "about")}
                               value={userData.about}
                             />

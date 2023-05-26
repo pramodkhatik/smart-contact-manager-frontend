@@ -29,6 +29,7 @@ const AddContact = () => {
   const handleUserData = () => {
     const userData = getCurrentUser();
     setFormData((prevFormData) => ({ ...prevFormData, user: userData }));
+    console.log(userData);
   };
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const AddContact = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const token = getToken();
-    // console.log(userData);
+    //console.log(userData);
 
     // console.log(formData);
     const validationErrors: { [key: string]: string } = {};
@@ -97,6 +98,9 @@ const AddContact = () => {
       );
       console.log(formData);
       console.log("Data Saved:", response.data);
+      toast.success("Contact Added Successfully!!");
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      window.location.replace("/user/home");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -219,7 +223,6 @@ const AddContact = () => {
                               placeholder="Contact Number"
                               value={formData.phone}
                               onChange={(e) => handleChange(e, "phone")}
-                              required
                             />
                             {errors.phone && (
                               <span className="error-message">
@@ -238,7 +241,6 @@ const AddContact = () => {
                               placeholder="Email"
                               value={formData.email}
                               onChange={(e) => handleChange(e, "email")}
-                              required
                             />
                             {errors.email && (
                               <span className="error-message">
@@ -265,17 +267,19 @@ const AddContact = () => {
                             )}
                           </div>
                         </div>
-                        <div className="d-flex flex-row align-itmes-center mb-3">
+                        <div className="d-flex flex-row align-itmes-center mb-4">
                           <i className="fa fa-info-circle fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <textarea
                               id="description"
                               name="Description"
                               // rows={4}
-                              cols={40}
+                              cols={39}
                               style={{
                                 minWidth: "fit-content",
                                 minHeight: "fit-content",
+                                marginLeft: "8px",
+                                marginRight: "20px",
                               }}
                               value={formData.description}
                               onChange={(e) => handleChange(e, "description")}

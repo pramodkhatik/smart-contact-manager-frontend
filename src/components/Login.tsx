@@ -21,6 +21,7 @@ const Login = () => {
   const handleFormSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     // console.log(loginDetail);
+
     signIn(loginDetail)
       .then(async (data: string) => {
         doLogIn(data, () => {});
@@ -32,7 +33,10 @@ const Login = () => {
         // console.log(error.response.status);
         if (error.response.status == 400) {
           toast.error(error.response.data);
-        } else if (error.response.status == 404) {
+        } else if (
+          error.response.status == 404 ||
+          error.response.status == 500
+        ) {
           toast.error("Invalid username or password!");
         } else {
           toast.error("Something Went Wrong");
@@ -102,9 +106,9 @@ const Login = () => {
                           placeholder="Enter password"
                           value={loginDetail.password}
                           onChange={(e) => handleChange(e, "password")}
-                          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                          // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
                           minLength={8}
-                          required
+                          //required
                         />
                       </div>
 

@@ -15,7 +15,10 @@ const HomePage = () => {
     <>
       <section className="vb-100">
         <div>
-          <nav className="navbar" style={{ backgroundColor: "#0478c2" }}>
+          <nav
+            className="navbar fixed-top"
+            style={{ backgroundColor: "#0478c2" }}
+          >
             <div className="container ">
               <a
                 className="navbar navbar-fixed navbar-brand text-center fw-bold"
