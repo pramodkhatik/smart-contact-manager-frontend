@@ -10,6 +10,6 @@
   border: 1px solid black;
 }
 
-input:invalid {
+/* input:invalid {
   border: 2px solid red;
-}
+} */

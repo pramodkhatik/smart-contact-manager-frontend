@@ -7,7 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import PrivateRouter from "./components/PrivateRouter";
 import AddContact from "./components/AddContact";
-import DefaultRouter from "./components/DefaultRouter";
 
 const App = () => {
   return (

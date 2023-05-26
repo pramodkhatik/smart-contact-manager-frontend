@@ -27,3 +27,7 @@ export const getCurrentUser = () => {
   }
   return false;
 };
+
+export const getToken = () => {
+  return JSON.parse(localStorage.getItem("data")).token;
+};

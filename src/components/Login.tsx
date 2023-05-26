@@ -44,7 +44,10 @@ const Login = () => {
     <>
       <section className="vb-100">
         <div>
-          <nav className="navbar" style={{ backgroundColor: "#0478c2" }}>
+          <nav
+            className="navbar fixed-top"
+            style={{ backgroundColor: "#0478c2" }}
+          >
             <div className="container justify-content-center ">
               <a
                 className="navbar-brand text-center fw-bold"
@@ -61,7 +64,10 @@ const Login = () => {
             <div className="card text-black mt-3  border-0" id="card">
               <div className="card-body p-md-3">
                 <div className="row justify-content-center">
-                  <div className="col-lg-7 col-xl-6">
+                  <div
+                    className="col-lg-7 col-xl-6"
+                    style={{ marginTop: "6.5rem" }}
+                  >
                     <img
                       src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                       className="img-fluid"

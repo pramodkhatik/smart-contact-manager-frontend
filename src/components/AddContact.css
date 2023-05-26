@@ -1,7 +1,12 @@
-.section{
-    background-color: #eee;
+.section {
+  background-color: #eee;
 }
 
-.card{
-    border-radius: 50px;
+.card {
+  border-radius: 50px;
+}
+
+.error-message {
+  color: red;
+  font-size: 15px;
 }

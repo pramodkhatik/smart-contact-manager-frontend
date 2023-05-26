@@ -18,7 +18,7 @@ const HomePage = () => {
           <nav className="navbar" style={{ backgroundColor: "#0478c2" }}>
             <div className="container ">
               <a
-                className="navbar-brand text-center fw-bold"
+                className="navbar navbar-fixed navbar-brand text-center fw-bold"
                 href="#"
                 style={{ color: "white" }}
               >
