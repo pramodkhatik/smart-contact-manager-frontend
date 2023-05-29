@@ -1,6 +1,7 @@
 import "./HomePage.css";
 import { doLogOut } from "../auth";
 import { toast } from "react-toastify";
+import Sidebar from "./Sidebar";
 
 const HomePage = () => {
   const handleLogOut = async (event: { preventDefault: () => void }) => {
@@ -17,9 +18,13 @@ const HomePage = () => {
         <div>
           <nav
             className="navbar fixed-top"
-            style={{ backgroundColor: "#0478c2" }}
+            style={{
+              backgroundColor: "#0478c2",
+              width: "100%",
+              position: "fixed",
+            }}
           >
-            <div className="container ">
+            <div className="container">
               <a
                 className="navbar navbar-fixed navbar-brand text-center fw-bold"
                 href="#"
@@ -44,6 +49,11 @@ const HomePage = () => {
               </div>
             </div>
           </nav>
+        </div>
+        <div>
+          <div>
+            <Sidebar />
+          </div>
         </div>
       </section>
     </>
