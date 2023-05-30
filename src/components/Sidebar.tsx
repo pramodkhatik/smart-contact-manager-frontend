@@ -8,37 +8,46 @@ import { toast } from "react-toastify";
 const Sidebar: React.FC = () => {
   const userData = getCurrentUser();
   const token = getToken();
-  const image =
-    getCurrentUser.image == null
-      ? window.location.origin + "/default.png"
-      : "http://localhost:8081/api/users/image/" + userData.id;
-  console.log(userData);
-  const [profileImage, setProfileImage] = useState(image);
+  console.log(getCurrentUser.imageUrl == null);
+  let profileImage = window.location.origin + "/default.png";
+  if (userData.imageUrl != null)
+    profileImage = "http://localhost:8081/api/users/image/" + userData.id;
+  // console.log(userData);
+  console.log(profileImage);
+  const [image, setImage] = useState(profileImage);
 
-  const handleImageUpload = async () => {
+  const handleImageUpload = async (event: { target: { files: any[] } }) => {
     const file = event.target.files[0];
+    // console.log(event.target.files);
     const reader = new FileReader();
     reader.onload = () => {
       userData.imageUrl = file.name;
-      console.log(file.name);
-      setProfileImage(file.name);
+      // console.log(file.name);
+      setImage(file.name);
     };
     reader.readAsDataURL(file);
-    const image = new FormData();
-    image.append("profileImage", file);
+    let formData = new FormData();
+    formData.append("image", file);
+    console.log(formData);
 
-    try {
-      const response = await axios.post(
+    await axios
+      .post(
         "http://localhost:8081/api/users/image/upload/" + userData.id,
-        image,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      toast.success("Image Uploaded");
-      console.log(response.data);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        toast.success("Image Uploaded");
+        console.log(response.data);
+        window.location.replace("/user/home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -46,16 +55,16 @@ const Sidebar: React.FC = () => {
       <div className="sidebar">
         <form>
           <div className="content">
-            <label htmlFor="profileImage">
+            <label htmlFor="image">
               <img
-                src={image}
+                src={profileImage}
                 alt="User Avatar"
                 className="rounded-circle avatar-img"
               />
             </label>
             <input
               type="file"
-              id="profileImage"
+              id="image"
               name="image"
               accept="image/*"
               onChange={handleImageUpload}
