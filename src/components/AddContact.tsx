@@ -150,8 +150,14 @@ const AddContact = () => {
               <div className="card text-black border-0" id="card">
                 <div className="card-body p-md-3">
                   <div className="row">
-                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                      <p className="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-4">
+                    <div
+                      className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"
+                      style={{ width: "100%" }}
+                    >
+                      <p
+                        className="text-center h2 fw-bold mb-4 mx-1 mx-md-4"
+                        style={{ marginTop: "5rem" }}
+                      >
                         Contact Details
                       </p>
                       <form
@@ -249,7 +255,7 @@ const AddContact = () => {
                             )}
                           </div>
                         </div>
-                        <div className="d-flex flex-row align-itmes-center mb-3">
+                        {/* <div className="d-flex flex-row align-itmes-center mb-3">
                           <i className="fa fa-image fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
@@ -266,7 +272,7 @@ const AddContact = () => {
                               </span>
                             )}
                           </div>
-                        </div>
+                        </div> */}
                         <div className="d-flex flex-row align-itmes-center mb-4">
                           <i className="fa fa-info-circle fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
@@ -274,7 +280,7 @@ const AddContact = () => {
                               id="description"
                               name="Description"
                               // rows={4}
-                              cols={39}
+                              cols={35}
                               style={{
                                 minWidth: "fit-content",
                                 minHeight: "fit-content",

@@ -27,7 +27,7 @@ const Registration = () => {
     setUserData({ ...userData, [property]: event.target.value });
   };
 
-  const submitForm = async (event: { preventDefault: () => void }) => {
+  const submitForm = async (event: any) => {
     event.preventDefault();
 
     const validationErrors: { [key: string]: string } = {};
@@ -184,7 +184,7 @@ const Registration = () => {
                             )}
                           </div>
                         </div>
-                        <div className="d-flex flex-row align-itmes-center mb-4">
+                        {/* <div className="d-flex flex-row align-itmes-center mb-4">
                           <i className="fa fa-image fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
@@ -196,7 +196,7 @@ const Registration = () => {
                               value={userData.imageUrl}
                             />
                           </div>
-                        </div>
+                        </div> */}
                         <div className="d-flex flex-row align-itmes-center mb-4">
                           <i className="fa fa-info-circle fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
