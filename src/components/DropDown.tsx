@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./DropDown.css";
-import { getToken } from "../auth";
+import { getToken, getCurrentUser } from "../auth";
 import { myAxios } from "../services/helper.js";
 import { toast } from "react-toastify";
+import axios from "axios";
 interface ContactDetails {
   contactData: any;
 }
@@ -44,10 +45,18 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
     }));
   };
 
-  const handleUpdate = (updatedData: any) => {
-    // Handle the update logic here
-    console.log(updatedData);
-    // Close the update confirmation dialog
+  const handleUpdate = async (updatedData: any) => {
+    await axios
+      .post("http://localhost:8081/api/contacts", updatedData, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => {
+        console.log(error);
+      });
+    toast.success("Contact Details Updated");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    window.location.replace("/user/home");
     closeUpdate();
   };
 
@@ -167,7 +176,6 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
                         />
                       </div>
                     </div>
-                    {/* Add any additional form fields here */}
                     <div className="update-confirmation-buttons">
                       <button
                         onClick={() => handleUpdate(updatedContactData)}

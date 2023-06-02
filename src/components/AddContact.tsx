@@ -29,12 +29,12 @@ const AddContact = () => {
   const handleUserData = () => {
     const userData = getCurrentUser();
     setFormData((prevFormData) => ({ ...prevFormData, user: userData }));
-    console.log(userData);
+    // console.log(userData);
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -96,7 +96,7 @@ const AddContact = () => {
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(formData);
+      // console.log(formData);
       console.log("Data Saved:", response.data);
       toast.success("Contact Added Successfully!!");
       await new Promise((resolve) => setTimeout(resolve, 2000));
