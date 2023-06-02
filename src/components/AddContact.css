@@ -10,3 +10,18 @@
   color: red;
   font-size: 15px;
 }
+
+.label{
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+
+div {
+  margin-bottom: 10px;
+ 
+}
+
+.fa :hover{
+  color: black
+}

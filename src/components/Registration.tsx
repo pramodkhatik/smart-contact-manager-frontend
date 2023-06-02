@@ -144,7 +144,12 @@ const Registration = () => {
 
                       <form className="mx-1 mx-md-4" onSubmit={submitForm}>
                         <div className="d-flex flex-row align-itmes-center mb-4">
-                          <i className="fa fa-user fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-user fa-lg me-3 fa-fw"
+                              title="Name"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
@@ -153,6 +158,7 @@ const Registration = () => {
                               placeholder="Your Name"
                               onChange={(e) => handleChange(e, "name")}
                               value={userData.name}
+                              style={{ width: "300px", marginLeft: "7px" }}
                             />
                             {errors.name && (
                               <span className="error-message">
@@ -162,7 +168,12 @@ const Registration = () => {
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-4">
-                          <i className="fa fa-envelope fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-envelope fa-lg me-3 fa-fw"
+                              title="Email"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
@@ -171,6 +182,7 @@ const Registration = () => {
                               placeholder="Your Email"
                               onChange={(e) => handleChange(e, "email")}
                               value={userData.email}
+                              style={{ width: "300px", marginLeft: "7px" }}
                             />
                             {errors.email && (
                               <span className="error-message">
@@ -180,7 +192,12 @@ const Registration = () => {
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-4">
-                          <i className="fa fa-user fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-user fa-lg me-3 fa-fw"
+                              title="Password"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="password"
@@ -191,6 +208,7 @@ const Registration = () => {
 
                               onChange={(e) => handleChange(e, "password")}
                               value={userData.password}
+                              style={{ width: "300px", marginLeft: "7px" }}
                             />
                             {errors.password && (
                               <span className="error-message">
@@ -213,7 +231,12 @@ const Registration = () => {
                           </div>
                         </div> */}
                         <div className="d-flex flex-row align-itmes-center mb-4">
-                          <i className="fa fa-info-circle fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-info-circle fa-lg me-3 fa-fw"
+                              title="Description"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <textarea
                               id="about"
@@ -224,8 +247,9 @@ const Registration = () => {
                               style={{
                                 minWidth: "fit-content",
                                 minHeight: "fit-content",
-                                marginLeft: "8px",
                                 marginRight: "20px",
+                                width: "300px",
+                                marginLeft: "7px",
                               }}
                               onChange={(e) => handleChange(e, "about")}
                               value={userData.about}
@@ -234,7 +258,7 @@ const Registration = () => {
                         </div>
                         <div className="form-check d-flex justify-content-center mb-5">
                           <input
-                            className="form-check-input me-2"
+                            className="form-check-input me-2 text-center"
                             type="checkbox"
                             value=""
                             id="checkbox"

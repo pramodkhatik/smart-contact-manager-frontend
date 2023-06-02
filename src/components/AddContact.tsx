@@ -18,6 +18,7 @@ const AddContact = () => {
     name: "",
     secondName: "",
     work: "",
+    designation: "",
     phone: "",
     email: "",
     image: "",
@@ -46,26 +47,21 @@ const AddContact = () => {
     if (formData.name.trim() === "") {
       validationErrors.name = "Name is required";
     } else if (formData.name.length < 3) {
-      validationErrors.name = "Name must be at least 3 charaters long";
+      validationErrors.name = "Name must be at least 3 characters long";
     } else if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
       validationErrors.name = "Name can only contain letters and spaces";
     }
 
-    if (formData.secondName !== null && formData.secondName.trim() === "") {
-      if (formData.secondName.length < 3) {
-        validationErrors.secondName = "Name must be at least 3 charaters long";
-      } else if (!/^[a-zA-Z]+$/.test(formData.secondName)) {
-        validationErrors.secondName =
-          "Name can only contain letters and spaces";
-      }
+    if (formData.work.trim() === "") {
+      validationErrors.work = "Role is required";
+    } else if (formData.work.length < 3) {
+      validationErrors.work = "Role must be at least 3 characters long";
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.work)) {
+      validationErrors.work = "Role can only contain letters and spaces";
     }
 
-    if (formData.work !== null && formData.work.trim() === "") {
-      if (formData.work.length < 3) {
-        validationErrors.work = "Work must be at least 3 charaters long";
-      } else if (!/^[a-zA-Z\s]+$/.test(formData.work)) {
-        validationErrors.work = "Work can only contain letters and spaces";
-      }
+    if (formData.designation.trim() === "select designation") {
+      validationErrors.work = "Designation is required";
     }
 
     if (formData.phone.trim() === "") {
@@ -163,7 +159,12 @@ const AddContact = () => {
                         onSubmit={handleSubmit}
                       >
                         <div className="d-flex flex-row align-itmes-center mb-3">
-                          <i className="fa fa-user fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-user fa-lg me-3 fa-fw"
+                              title="Name"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
@@ -172,6 +173,7 @@ const AddContact = () => {
                               placeholder="Contact name"
                               value={formData.name}
                               onChange={(e) => handleChange(e, "name")}
+                              style={{ width: "300px", marginLeft: "8px" }}
                             />
                             {errors.name && (
                               <span className="error-message">
@@ -181,7 +183,12 @@ const AddContact = () => {
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-3">
-                          <i className="fa fa-user fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-user fa-lg me-3 fa-fw"
+                              title="Nick Name"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
@@ -190,6 +197,7 @@ const AddContact = () => {
                               placeholder="Nick name"
                               value={formData.secondName}
                               onChange={(e) => handleChange(e, "secondName")}
+                              style={{ width: "300px", marginLeft: "8px" }}
                             />
                             {errors.secondName && (
                               <span className="error-message">
@@ -199,15 +207,21 @@ const AddContact = () => {
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-3">
-                          <i className="fa fa-briefcase fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fas fa-laptop fa-lg me-3 fa-fw"
+                              title="Role"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
                               id="work"
                               className="form-control"
-                              placeholder="Work"
+                              placeholder="Role"
                               value={formData.work}
                               onChange={(e) => handleChange(e, "work")}
+                              style={{ width: "300px", marginLeft: "9px" }}
                             />
                             {errors.work && (
                               <span className="error-message">
@@ -217,7 +231,49 @@ const AddContact = () => {
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-3">
-                          <i className="fa fa-phone fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-briefcase fa-lg me-3 fa-fw"
+                              title="Designation"
+                            ></i>
+                          </label>
+                          <div className="form-outline flex-fill mb-0">
+                            <select
+                              id="designation"
+                              className="form-control"
+                              placeholder="Select Designation"
+                              value={formData.designation}
+                              onChange={(e) => handleChange(e, "designation")}
+                              style={{ width: "300px", marginLeft: "9px" }}
+                            >
+                              <option value={""}>Select Designation</option>
+                              <option value={"Manager"}>Manager</option>
+                              <option value={"Director"}>Director</option>
+                              <option value={"Associate Engineer"}>
+                                Associate Engineer
+                              </option>
+                              <option value={"Buisness System Analyst"}>
+                                BSA
+                              </option>
+                              <option value={"People & Culture"}>P & C</option>
+                              <option value={"Software Engineer"}>
+                                Software Engineer
+                              </option>
+                            </select>
+                            {errors.designation && (
+                              <span className="error-message">
+                                {errors.designation}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row align-itmes-center mb-3">
+                          <label>
+                            <i
+                              className="fa fa-phone fa-lg me-3 fa-fw"
+                              title="Contact Number"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
@@ -226,6 +282,7 @@ const AddContact = () => {
                               placeholder="Contact Number"
                               value={formData.phone}
                               onChange={(e) => handleChange(e, "phone")}
+                              style={{ width: "300px", marginLeft: "8px" }}
                             />
                             {errors.phone && (
                               <span className="error-message">
@@ -235,7 +292,12 @@ const AddContact = () => {
                           </div>
                         </div>
                         <div className="d-flex flex-row align-itmes-center mb-3">
-                          <i className="fa fa-envelope fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-envelope fa-lg me-3 fa-fw"
+                              title="Email"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
@@ -244,6 +306,7 @@ const AddContact = () => {
                               placeholder="Email"
                               value={formData.email}
                               onChange={(e) => handleChange(e, "email")}
+                              style={{ width: "300px", marginLeft: "7px" }}
                             />
                             {errors.email && (
                               <span className="error-message">
@@ -262,6 +325,7 @@ const AddContact = () => {
                               accept=".png,.jpg,.jpeg,"
                               value={formData.image}
                               onChange={(e) => handleChange(e, "image")}
+                               style={{ width: "300px" }}
                             />
                             {errors.image && (
                               <span className="error-message">
@@ -271,7 +335,12 @@ const AddContact = () => {
                           </div>
                         </div> */}
                         <div className="d-flex flex-row align-itmes-center mb-4">
-                          <i className="fa fa-info-circle fa-lg me-3 fa-fw"></i>
+                          <label>
+                            <i
+                              className="fa fa-info-circle fa-lg me-3 fa-fw"
+                              title="Description"
+                            ></i>
+                          </label>
                           <div className="form-outline flex-fill mb-0">
                             <textarea
                               id="description"
@@ -281,8 +350,9 @@ const AddContact = () => {
                               style={{
                                 minWidth: "fit-content",
                                 minHeight: "fit-content",
-                                marginLeft: "9px",
+                                marginLeft: "8px",
                                 marginRight: "20px",
+                                width: "300px",
                               }}
                               value={formData.description}
                               onChange={(e) => handleChange(e, "description")}

@@ -13,3 +13,9 @@
 /* input:invalid {
   border: 2px solid red;
 } */
+
+.label{
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
