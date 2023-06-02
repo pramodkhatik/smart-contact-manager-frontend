@@ -16,7 +16,6 @@ const Registration = () => {
 
   const [error, setError] = useState({ errors: {}, isError: false });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isRegistered, setIsRegistered] = useState(false);
   //   useEffect(() => {
   //     console.log(userData);
   //   }, [userData]);
@@ -28,7 +27,7 @@ const Registration = () => {
     setUserData({ ...userData, [property]: event.target.value });
   };
 
-  const submitForm = async (event: { preventDefault: () => void }) => {
+  const submitForm = async (event: any) => {
     event.preventDefault();
 
     const validationErrors: { [key: string]: string } = {};
@@ -77,25 +76,18 @@ const Registration = () => {
       .then((resp: any) => {
         console.log(resp);
         console.log("success log");
-        toast.success("Regiseterd Successfully");
-        setTimeout(() => {
-          window.location.replace("/");
-        }, 3000);
       })
       .catch((error: any) => {
         console.log(error);
-        if (error.response && error.response.status === 500) {
-          const errorMessage = error.response.data.message;
-          if (errorMessage === "Email alreday exists") {
-            setIsRegistered(true);
-            // if(errorMessage.includes('Duplicate entry')){
-          }
-        }
         setError({
           errors: error,
           isError: true,
         });
       });
+
+    toast.success("Regiseterd Successfully");
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    window.location.replace("/");
   };
 
   return (
@@ -130,18 +122,11 @@ const Registration = () => {
                       style={{ width: "100%" }}
                     >
                       <p
-                        className="text-center h1 fw-bold mb-4 mx-1 mx-md-4"
+                        className="text-center h1 fw-bold mb-5 mx-1 mx-md-4"
                         style={{ marginTop: "5rem" }}
                       >
                         Sign up
                       </p>
-
-                      {isRegistered && (
-                        <p className="text-center" style={{ color: "red" }}>
-                          User Already Exists.
-                        </p>
-                      )}
-
                       <form className="mx-1 mx-md-4" onSubmit={submitForm}>
                         <div className="d-flex flex-row align-itmes-center mb-4">
                           <i className="fa fa-user fa-lg me-3 fa-fw"></i>
@@ -219,7 +204,7 @@ const Registration = () => {
                               id="about"
                               name="about"
                               rows={4}
-                              cols={35}
+                              cols={39}
                               maxLength={500}
                               style={{
                                 minWidth: "fit-content",

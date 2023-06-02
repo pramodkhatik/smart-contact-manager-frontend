@@ -10,7 +10,7 @@
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 19px;
 }
 
 /* Change the color of links on hover */
@@ -19,3 +19,47 @@
   background-color: #0478c2;
   color: white;
 }
+
+
+.grid-container{
+  display: grid;
+  grid-template-columns: 200px 1rf;
+  gap: 16px;
+  height: calc(100%-60px);
+}
+
+.search-container{
+  background: #fff;
+  height: 30px;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.4s;
+
+}
+
+.search-container:hover .search-input{
+  width: 200px;
+}
+
+.search-container .search-input{
+  background: transparent;
+  border: none;
+  outline:none;
+  width: 200px;
+  font-weight: 500;
+  font-size: 16px;
+
+
+}
+
+.search-container .search-btn .fas{
+  color: #5cbdbb;
+}
+
+
+
+

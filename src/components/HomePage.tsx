@@ -1,21 +1,27 @@
 import "./HomePage.css";
+import "font-awesome/css/font-awesome.min.css";
 import { doLogOut } from "../auth";
 import { toast } from "react-toastify";
 import Sidebar from "./Sidebar";
+import MyCard from "./Card";
+import React, { useState } from "react";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
+  const [searchValue, setSearchValue] = useState("");
+
   const handleLogOut = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     toast.error("Logged Out");
     doLogOut();
     await new Promise((resolve) => setTimeout(resolve, 1500));
+    setSearchValue("");
     window.location.replace("/");
   };
 
   return (
     <>
       <section className="vb-100">
-        <div>
+        <div className="container">
           <nav
             className="navbar fixed-top"
             style={{
@@ -32,6 +38,19 @@ const HomePage = () => {
               >
                 <h1>Smart Contact Manager</h1>
               </a>
+              <div className="search-container">
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search..."
+                  className="search-input"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                />
+                <a href="#" className="search-btn">
+                  <i className="fa fa-search" style={{ color: "#3f7be4;" }}></i>
+                </a>
+              </div>
               <div className="topnav">
                 <a
                   className="active"
@@ -51,8 +70,15 @@ const HomePage = () => {
           </nav>
         </div>
         <div>
-          <div>
-            <Sidebar />
+          <div className="grid-container">
+            <div>
+              <Sidebar />
+            </div>
+            <div style={{ marginTop: "100px", marginLeft: "10px" }}>
+              <div className="main-content">
+                <MyCard searchValue={searchValue} />
+              </div>
+            </div>
           </div>
         </div>
       </section>

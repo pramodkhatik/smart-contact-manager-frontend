@@ -2,8 +2,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.min.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getToken, getCurrentUser } from "../auth";
+import { getToken, getCurrentUser, doLogOut } from "../auth";
 import "./AddContact.css";
+import { toast } from "react-toastify";
 
 const AddContact = () => {
   const handleLogOut = async (event: { preventDefault: () => void }) => {
@@ -28,6 +29,7 @@ const AddContact = () => {
   const handleUserData = () => {
     const userData = getCurrentUser();
     setFormData((prevFormData) => ({ ...prevFormData, user: userData }));
+    console.log(userData);
   };
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const AddContact = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const token = getToken();
-    // console.log(userData);
+    //console.log(userData);
 
     // console.log(formData);
     const validationErrors: { [key: string]: string } = {};
@@ -96,6 +98,9 @@ const AddContact = () => {
       );
       console.log(formData);
       console.log("Data Saved:", response.data);
+      toast.success("Contact Added Successfully!!");
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      window.location.replace("/user/home");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -139,14 +144,20 @@ const AddContact = () => {
             </div>
           </nav>
         </div>
-        <div className="container position-fixed h-100" id="root">
+        <div className="container h-100" id="root">
           <div className="row d-flex justify-content-center align-itmes-center h-100">
             <div className="col-lg-12 col-xl-11">
               <div className="card text-black border-0" id="card">
                 <div className="card-body p-md-3">
-                  <div className="row justify-content-center">
-                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                      <p className="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-4">
+                  <div className="row">
+                    <div
+                      className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"
+                      style={{ width: "100%" }}
+                    >
+                      <p
+                        className="text-center h2 fw-bold mb-4 mx-1 mx-md-4"
+                        style={{ marginTop: "5rem" }}
+                      >
                         Contact Details
                       </p>
                       <form
@@ -218,7 +229,6 @@ const AddContact = () => {
                               placeholder="Contact Number"
                               value={formData.phone}
                               onChange={(e) => handleChange(e, "phone")}
-                              required
                             />
                             {errors.phone && (
                               <span className="error-message">
@@ -237,7 +247,6 @@ const AddContact = () => {
                               placeholder="Email"
                               value={formData.email}
                               onChange={(e) => handleChange(e, "email")}
-                              required
                             />
                             {errors.email && (
                               <span className="error-message">
@@ -246,7 +255,7 @@ const AddContact = () => {
                             )}
                           </div>
                         </div>
-                        <div className="d-flex flex-row align-itmes-center mb-3">
+                        {/* <div className="d-flex flex-row align-itmes-center mb-3">
                           <i className="fa fa-image fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
@@ -263,18 +272,20 @@ const AddContact = () => {
                               </span>
                             )}
                           </div>
-                        </div>
-                        <div className="d-flex flex-row align-itmes-center mb-3">
+                        </div> */}
+                        <div className="d-flex flex-row align-itmes-center mb-4">
                           <i className="fa fa-info-circle fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <textarea
                               id="description"
                               name="Description"
                               // rows={4}
-                              cols={40}
+                              cols={35}
                               style={{
                                 minWidth: "fit-content",
                                 minHeight: "fit-content",
+                                marginLeft: "8px",
+                                marginRight: "20px",
                               }}
                               value={formData.description}
                               onChange={(e) => handleChange(e, "description")}
@@ -284,15 +295,19 @@ const AddContact = () => {
 
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
-                            type="button"
+                            type="submit"
                             className="btn btn-primary btn-lg"
+                            onClick={handleUserData}
                           >
                             Add Contact
                           </button>
                         </div>
                       </form>
                     </div>
-                    <div className="col-md-12 col-lg-7 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                    <div
+                      className="col-md-12 col-lg-7 col-xl-7 d-flex order-1 order-lg-2 position-fixed"
+                      style={{ marginTop: "4rem", marginLeft: "25rem" }}
+                    >
                       <img
                         src={window.location.origin + "/contact.jpg"}
                         className="img-fluid rounded mx-auto d-block"

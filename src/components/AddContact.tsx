@@ -46,14 +46,14 @@ const AddContact = () => {
     if (formData.name.trim() === "") {
       validationErrors.name = "Name is required";
     } else if (formData.name.length < 3) {
-      validationErrors.name = "Name Must be at least 3 charaters long";
+      validationErrors.name = "Name must be at least 3 charaters long";
     } else if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
       validationErrors.name = "Name can only contain letters and spaces";
     }
 
     if (formData.secondName !== null && formData.secondName.trim() === "") {
       if (formData.secondName.length < 3) {
-        validationErrors.secondName = "Name Must be at least 3 charaters long";
+        validationErrors.secondName = "Name must be at least 3 charaters long";
       } else if (!/^[a-zA-Z]+$/.test(formData.secondName)) {
         validationErrors.secondName =
           "Name can only contain letters and spaces";
@@ -62,7 +62,7 @@ const AddContact = () => {
 
     if (formData.work !== null && formData.work.trim() === "") {
       if (formData.work.length < 3) {
-        validationErrors.work = "Work Must be at least 3 charaters long";
+        validationErrors.work = "Work must be at least 3 charaters long";
       } else if (!/^[a-zA-Z\s]+$/.test(formData.work)) {
         validationErrors.work = "Work can only contain letters and spaces";
       }
@@ -74,7 +74,7 @@ const AddContact = () => {
       validationErrors.phone = "Contact number should be of 10 digits";
     } else if (!/^\d{10}$/.test(formData.phone)) {
       validationErrors.phone =
-        "Contact Number only contains digits not characters or any special characters";
+        "Contact number only contains digits not characters or any special characters";
     }
 
     if (formData.email.trim() === "") {
@@ -154,10 +154,7 @@ const AddContact = () => {
                       className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"
                       style={{ width: "100%" }}
                     >
-                      <p
-                        className="text-center h2 fw-bold mb-4 mx-1 mx-md-4"
-                        style={{ marginTop: "5rem" }}
-                      >
+                      <p className="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-4">
                         Contact Details
                       </p>
                       <form
@@ -284,7 +281,7 @@ const AddContact = () => {
                               style={{
                                 minWidth: "fit-content",
                                 minHeight: "fit-content",
-                                marginLeft: "8px",
+                                marginLeft: "9px",
                                 marginRight: "20px",
                               }}
                               value={formData.description}
