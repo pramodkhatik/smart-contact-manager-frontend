@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import "./Card.css";
 import axios from "axios";
 import { getCurrentUser, getToken } from "../auth";
+import Dropdown from "./DropDown";
 
 interface MyCardProp {
   searchValue: string;
 }
 const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
   const [contacts, setContacts] = useState([]);
+  // const [selectContact, setSelectedContact] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState([]);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
       })
       .catch((error) => console.log("Error fetching contacts:", error));
   }, []);
-  console.log(contacts);
+  // console.log(contacts);
 
   useEffect(() => {
     const filteredResults = contacts.filter((contact) =>
@@ -30,7 +32,9 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
     setFilteredContacts(filteredResults);
   }, [searchValue, contacts]);
 
-  console.log(filteredContacts);
+  // useEffect(() => console.log(selectContact));
+
+  // console.log(filteredContacts);
   return (
     <div className="card-container">
       {filteredContacts.length > 0 ? (
@@ -38,7 +42,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
           <div
             className="cards"
             key={contact.id}
-            style={{ width: "450px", height: "200px", marginLeft: "1px" }}
+            style={{ width: "430px", height: "200px", marginLeft: "1px" }}
           >
             <div className="card-body">
               <div className="row">
@@ -60,6 +64,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                     paddingTop: "15px",
                   }}
                 >
+                  <Dropdown contactData={contact} />
                   <h6 style={{ paddingBottom: "5px" }}>
                     {" "}
                     <i className="fa fa-user-o" aria-hidden="true"></i>{" "}
@@ -86,10 +91,6 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                 </div>
               </div>
             </div>
-
-            <div className="col-4 "></div>
-
-            <div className="col-4"></div>
           </div>
         ))
       ) : (
