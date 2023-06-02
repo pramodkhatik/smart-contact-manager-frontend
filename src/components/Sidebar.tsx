@@ -8,12 +8,12 @@ import { toast } from "react-toastify";
 const Sidebar: React.FC = () => {
   const userData = getCurrentUser();
   const token = getToken();
-  console.log(getCurrentUser.imageUrl == null);
+  // console.log(getCurrentUser.imageUrl == null);
   let profileImage = window.location.origin + "/default.png";
   if (userData.imageUrl != null)
     profileImage = "http://localhost:8081/api/users/image/" + userData.id;
   // console.log(userData);
-  console.log(profileImage);
+  // console.log(profileImage);
   const [image, setImage] = useState(profileImage);
 
   const handleImageUpload = async (event: { target: { files: any[] } }) => {
