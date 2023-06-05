@@ -12,6 +12,14 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
   // const [selectContact, setSelectedContact] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState([]);
 
+  const getImage = (contact) => {
+    let contactImage = window.location.origin + "/default.png";
+    if (contact.image != null)
+      contactImage =
+        "http://localhost:8081/api/contacts/image/" + contact.contactId;
+    return contactImage;
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:8081/api/contacts/users/" + getCurrentUser().id, {
@@ -49,7 +57,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                 <div className="col-5">
                   <div className="image-content">
                     <img
-                      src={window.location.origin + "/default.png"}
+                      src={getImage(contact)}
                       className="rounded-circle "
                       alt="User Avatar"
                       style={{ width: "150px", height: "150px" }}

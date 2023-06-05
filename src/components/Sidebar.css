@@ -25,6 +25,9 @@ body {
 
 .content {
   text-align: center;
+  width: 50%;
+  height: 50%;
+  margin-left: 2rem;
 }
 
 .content .avatar-img {

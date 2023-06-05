@@ -64,7 +64,7 @@ const Login = () => {
           </nav>
         </div>
         <div className="container h-100 ">
-          <div className="row d-flex justify-content-center align-itmes-center h-100">
+          <div className="row d-flex justify-content-center align-itmes-center h-100 position-fixed">
             <div className="card text-black mt-3  border-0" id="card">
               <div className="card-body p-md-3">
                 <div className="row justify-content-center">

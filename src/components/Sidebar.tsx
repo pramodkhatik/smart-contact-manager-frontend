@@ -67,18 +67,18 @@ const Sidebar: React.FC = () => {
               id="image"
               name="image"
               accept="image/*"
-              onChange={handleImageUpload}
+              onChange={(event) => handleImageUpload}
               style={{ display: "none" }}
             />
           </div>
         </form>
         <div className="user-data">
-          <h4 style={{ color: "white", textAlign: "center" }}>
+          <h5 style={{ color: "white", textAlign: "center" }}>
             {userData.name}
-          </h4>
+          </h5>
         </div>
         <hr />
-        <div className="info-box" style={{ color: "white" }}>
+        <div className="info-box" style={{ color: "white", fontSize: "small" }}>
           {userData.about}
         </div>
       </div>

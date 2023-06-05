@@ -12,7 +12,16 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
+  const [imageUpload, setImageUpload] = useState(false);
   const [updatedContactData, setUpdatedContactData] = useState(contactData);
+
+  const openImage = () => {
+    setImageUpload(true);
+  };
+
+  const closeImage = () => {
+    setImageUpload(false);
+  };
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -74,6 +83,43 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
     closeDelete();
   };
 
+  const handleContactImageUpload = async (
+    event: { target: { files: any[] } },
+    contactId: any
+  ) => {
+    console.log(contactId);
+    const file = event.target.files[0];
+    console.log(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      updatedContactData.image = file.name;
+    };
+    reader.readAsDataURL(file);
+    let formData = new FormData();
+    formData.append("image", file);
+    console.log(formData);
+
+    await axios
+      .post(
+        "http://localhost:8081/api/contacts/image/upload/" + contactId,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        }
+      )
+      .then((response) => {
+        toast.success("Image Uploaded");
+        console.log(response.data);
+        window.location.replace("/user/home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // console.log(updatedContactData);
+
   return (
     <div>
       <div className="dropdown">
@@ -90,6 +136,42 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
         ></i>
         {dropdownOpen && (
           <div className="dropdown-content">
+            <a href="#" onClick={openImage}>
+              Upload Image
+            </a>
+            {imageUpload && (
+              <div className="image-confirmation-modal">
+                <div className="image-confirmation-box">
+                  <h3>Upload Image</h3>
+                  <form>
+                    <label htmlFor="image">Image :</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="image"
+                      name="image"
+                      onSubmit={(event) =>
+                        handleContactImageUpload(
+                          event,
+                          updatedContactData.contactId
+                        )
+                      }
+                    />
+                    <div className="image-confirmation-buttons">
+                      <button type="submit" className="btn btn-primary">
+                        Upload
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={closeImage}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
             <a href="#" onClick={openUpdate}>
               Update
             </a>
