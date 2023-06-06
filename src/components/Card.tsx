@@ -12,9 +12,9 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
   // const [selectContact, setSelectedContact] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState([]);
 
-  const getImage = (contact) => {
+  const getImage = (contact: any) => {
     let contactImage = window.location.origin + "/default.png";
-    if (contact.image != null)
+    if (contact.image != null && contact.image != "")
       contactImage =
         "http://localhost:8081/api/contacts/image/" + contact.contactId;
     return contactImage;
@@ -73,7 +73,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                   }}
                 >
                   <Dropdown contactData={contact} />
-                  <h6 style={{ paddingBottom: "5px" }}>
+                  <h6 style={{ paddingBottom: "5px", fontWeight: "bold" }}>
                     {" "}
                     <i className="fa fa-user-o" aria-hidden="true"></i>{" "}
                     {contact.name}
