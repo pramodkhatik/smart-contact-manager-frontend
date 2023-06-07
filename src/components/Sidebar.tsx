@@ -1,17 +1,22 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Sidebar.css";
 import { getCurrentUser, getToken } from "../auth";
-import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const Sidebar: React.FC = () => {
   const userData = getCurrentUser();
   const token = getToken();
-  let profileImage = window.location.origin + "/default.png";
-  if (userData.imageUrl != null && userData.imageUrl != "")
-    profileImage = "http://localhost:8081/api/users/image/" + userData.id;
-  const [image, setImage] = useState(profileImage);
+
+  const getImage = () => {
+    let profileImage = window.location.origin + "/default.png";
+    console.log(userData.imageUrl);
+    if (userData.imageUrl != null && userData.imageUrl != "")
+      profileImage = "http://localhost:8081/api/users/image/" + userData.id;
+    return profileImage;
+  };
+
+  // const [image, setImage] = useState(profileImage);
 
   const handleImageUpload = async (event: { target: { files: any[] } }) => {
     const file = event.target.files[0];
@@ -20,7 +25,6 @@ const Sidebar: React.FC = () => {
     reader.onload = () => {
       userData.imageUrl = file.name;
       // console.log(file.name);
-      setImage(file.name);
     };
     reader.readAsDataURL(file);
     let formData = new FormData();
@@ -54,7 +58,7 @@ const Sidebar: React.FC = () => {
           <div className="content">
             <label htmlFor="image">
               <img
-                src={profileImage}
+                src={getImage()}
                 alt="User Avatar"
                 className="rounded-circle avatar-img"
               />

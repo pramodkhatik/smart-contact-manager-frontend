@@ -308,13 +308,6 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
             {showDetails && (
               <div className="details-modal" ref={updatedContactData}>
                 <div className="details-box">
-                  <div style={{ position: "fixed" }}>
-                    <i
-                      className="fa fa-times"
-                      onClick={closeDetails}
-                      style={{ marginLeft: "37rem" }}
-                    />
-                  </div>
                   <div className="row">
                     <div className="col">
                       <img
@@ -326,22 +319,21 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
                       <div style={{ position: "fixed" }} onClick={closeDetails}>
                         <i
                           className="fa fa-times"
-                          style={{ marginLeft: "35rem" }}
+                          style={{ marginLeft: "15rem", position: "fixed" }}
                         />
                       </div>
                       <div style={{ marginTop: "2rem" }}>
                         <h5>
                           {contactData.name} ({contactData.secondName})
                         </h5>
-                        {contactData.designation}
-                        <br />
-                        <br />
+                        <p style={{ fontWeight: "bold" }}>
+                          {contactData.designation}
+                        </p>
                         {contactData.phone}
                         <br />
                         {contactData.email}
                         <br />
                         {contactData.work}
-                        <br />
                         <br />
                       </div>
                     </div>
