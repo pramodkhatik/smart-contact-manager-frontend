@@ -94,7 +94,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                   <h6 style={{ paddingBottom: "5px" }}>
                     {" "}
                     <i className="fa fa-phone" aria-hidden="true"></i>{" "}
-                    {contact.phone}
+                    {contact.countryExtension}{" "}{contact.phone}
                   </h6>
                 </div>
               </div>

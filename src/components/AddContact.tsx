@@ -24,6 +24,7 @@ const AddContact = () => {
     image: "",
     description: "",
     user: {},
+    countryExtension: ""
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -67,11 +68,11 @@ const AddContact = () => {
     if (formData.phone.trim() === "") {
       validationErrors.phone = "Contact number is required";
     } else if (
-      !/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(formData.phone)
+      !/^\+?([0-9]{1})\)?[-. ]?([0-9]{5})[-. ]?([0-9]{4})$/.test(formData.phone)
     ) {
       validationErrors.phone = "Contact number should be of 10 digits";
     } else if (
-      !/^\+?([6,7,8,9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(
+      !/^\+?([6,7,8,9]{1})\)?[-. ]?([0-9]{5})[-. ]?([0-9]{4})$/.test(
         formData.phone
       )
     ) {
@@ -112,7 +113,9 @@ const AddContact = () => {
   };
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  >,
     property: string
   ) => {
     setFormData({ ...formData, [property]: event.target.value });
@@ -276,14 +279,26 @@ const AddContact = () => {
                             )}
                           </div>
                         </div>
-                        <div className="d-flex flex-row align-itmes-center mb-3">
-                          <label>
-                            <i
-                              className="fa fa-phone fa-lg me-3 fa-fw"
-                              title="Contact Number"
-                            ></i>
-                          </label>
-                          <div className="form-outline flex-fill mb-0">
+                        <div className="d-flex align-items-left mb-3">
+                          <div className="form-outline flex-fill">
+                            <label className="d-flex align-items-center">
+                              <i className="fa fa-phone fa-lg me-4 ms-2" 
+                              title="Contact Number"></i>
+                              <select
+                              id="countryExtension"
+                              className="form-select"
+                              value={formData.countryExtension}
+                              onChange={(e) => handleChange(e, "countryExtension")}
+                              style={{width:"80px"}}
+                              >
+                                <option value="+1">+1 (USA)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+91">+91 (India)</option>
+                                <option value="+65">+65 (Singapore)</option>
+                              </select>
+                            </label>
+                          </div>
+                          <div className="form-outline flex-fill">
                             <input
                               type="text"
                               id="phone"
@@ -291,7 +306,7 @@ const AddContact = () => {
                               placeholder="Contact Number"
                               value={formData.phone}
                               onChange={(e) => handleChange(e, "phone")}
-                              style={{ width: "300px", marginLeft: "8px" }}
+                              style={{width:"224px"}}
                             />
                             {errors.phone && (
                               <span className="error-message">
