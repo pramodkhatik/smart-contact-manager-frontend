@@ -38,6 +38,8 @@ const Registration = () => {
       validationErrors.name = "Name Must be at least 3 charaters long";
     } else if (!/^[a-zA-Z\s]+$/.test(userData.name)) {
       validationErrors.name = "Name can only contain letters and spaces";
+    } else {
+      validationErrors.name = "";
     }
     if (userData.email.trim() === "") {
       validationErrors.email = "Email is required";
@@ -64,6 +66,12 @@ const Registration = () => {
         "Password should have: at least 1 special Character";
     }
 
+    if (userData.about.trim() === "") {
+      validationErrors.about = "About field cannot be empty";
+    } else if (userData.about.length >= 500) {
+      validationErrors.about = "Max 500 characters are allowed";
+    }
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -82,12 +90,15 @@ const Registration = () => {
           window.location.replace("/");
         }, 3000);
       })
-      .catch((error: any) => {
+      .catch(async (error: any) => {
         console.log(error);
-        if (error.response && error.response.status === 500) {
+        if (error.response || error.response.status === 500) {
           const errorMessage = error.response.data.message;
           if (errorMessage === "Email alreday exists") {
             setIsRegistered(true);
+            toast.error("user already exists !!");
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            window.location.replace("/register");
             // if(errorMessage.includes('Duplicate entry')){
           }
         }
@@ -136,11 +147,11 @@ const Registration = () => {
                         Sign up
                       </p>
 
-                      {isRegistered && (
+                      {/* {isRegistered && (
                         <p className="text-center" style={{ color: "red" }}>
                           User Already Exists.
                         </p>
-                      )}
+                     )}*/}
 
                       <form className="mx-1 mx-md-4" onSubmit={submitForm}>
                         <div className="d-flex flex-row align-itmes-center mb-4">
@@ -241,6 +252,7 @@ const Registration = () => {
                             <textarea
                               id="about"
                               name="about"
+                              placeholder="Max 500 characters allowed."
                               rows={4}
                               cols={35}
                               maxLength={500}
@@ -254,6 +266,12 @@ const Registration = () => {
                               onChange={(e) => handleChange(e, "about")}
                               value={userData.about}
                             />
+                            <br />
+                            {errors.about && (
+                              <span className="error-message">
+                                {errors.about}
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="form-check d-flex justify-content-center mb-5">

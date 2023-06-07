@@ -66,11 +66,16 @@ const AddContact = () => {
 
     if (formData.phone.trim() === "") {
       validationErrors.phone = "Contact number is required";
-    } else if (formData.phone.length > 10) {
+    } else if (
+      !/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(formData.phone)
+    ) {
       validationErrors.phone = "Contact number should be of 10 digits";
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      validationErrors.phone =
-        "Contact number only contains digits not characters or any special characters";
+    } else if (
+      !/^\+?([6,7,8,9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(
+        formData.phone
+      )
+    ) {
+      validationErrors.phone = "Please enter valid contact number";
     }
 
     if (formData.email.trim() === "") {
@@ -79,6 +84,10 @@ const AddContact = () => {
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
     ) {
       validationErrors.email = "Please insert valid email address";
+    }
+
+    if (formData.description.length > 500) {
+      validationErrors.description = "Max 500 characters allowed ";
     }
 
     if (Object.keys(validationErrors).length > 0) {
@@ -345,6 +354,7 @@ const AddContact = () => {
                             <textarea
                               id="description"
                               name="Description"
+                              placeholder="Max 500 characters accepted"
                               // rows={4}
                               cols={35}
                               style={{
@@ -357,6 +367,12 @@ const AddContact = () => {
                               value={formData.description}
                               onChange={(e) => handleChange(e, "description")}
                             />
+                            <br />
+                            {errors.description && (
+                              <span className="error-message">
+                                {errors.description}
+                              </span>
+                            )}
                           </div>
                         </div>
 
