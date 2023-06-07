@@ -45,7 +45,7 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
     setUpdateOpen(false);
   };
 
-  const openDetails = (contact: any) => {
+  const openDetails = () => {
     setShowDetails(true);
   };
 
@@ -125,6 +125,14 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getImage = (contact: any) => {
+    let contactImage = window.location.origin + "/default.png";
+    if (contact.image != null && contact.image != "")
+      contactImage =
+        "http://localhost:8081/api/contacts/image/" + contact.contactId;
+    return contactImage;
   };
 
   return (
@@ -298,23 +306,49 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
             )}
             <a onClick={openDetails}>More Info</a>
             {showDetails && (
-              <div className="confirmation-modal" ref={updatedContactData}>
-                <div className="confirmation-box">
-                  <h2>Contact Details</h2>
+              <div className="details-modal" ref={updatedContactData}>
+                <div className="details-box">
+                  <div style={{ position: "fixed" }}>
+                    <i
+                      className="fa fa-times"
+                      onClick={closeDetails}
+                      style={{ marginLeft: "37rem" }}
+                    />
+                  </div>
                   <div className="row">
                     <div className="col">
-                      <p>Name: {updatedContactData.name}</p>
+                      <img
+                        src={getImage(contactData)}
+                        style={{ height: "200px" }}
+                      />
                     </div>
                     <div className="col">
-                      <p>Designation : {updatedContactData.designation}</p>
+                      <div style={{ position: "fixed" }} onClick={closeDetails}>
+                        <i
+                          className="fa fa-times"
+                          style={{ marginLeft: "35rem" }}
+                        />
+                      </div>
+                      <div style={{ marginTop: "2rem" }}>
+                        <h5>
+                          {contactData.name} ({contactData.secondName})
+                        </h5>
+                        {contactData.designation}
+                        <br />
+                        <br />
+                        {contactData.phone}
+                        <br />
+                        {contactData.email}
+                        <br />
+                        {contactData.work}
+                        <br />
+                        <br />
+                      </div>
                     </div>
                   </div>
-                  <p>Name: {updatedContactData.name}</p>
-                  <p>Designation : {updatedContactData.designation}</p>
-                  <p>Work: {updatedContactData.work}</p>
-                  <p>Email: {updatedContactData.email}</p>
-                  <p>Phone: {updatedContactData.phone}</p>
-                  <p>About: {updatedContactData.description}</p>
+                  <div className="row">
+                    <div className="col">{contactData.description}</div>
+                  </div>
                 </div>
               </div>
             )}

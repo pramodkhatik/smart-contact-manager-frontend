@@ -42,7 +42,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
 
   // useEffect(() => console.log(selectContact));
 
-  // console.log(filteredContacts);
+  console.log(filteredContacts);
   return (
     <div className="card-container">
       {filteredContacts.length > 0 ? (
