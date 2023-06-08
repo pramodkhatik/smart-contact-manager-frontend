@@ -10,7 +10,7 @@ const Sidebar: React.FC = () => {
 
   const getImage = () => {
     let profileImage = window.location.origin + "/default.png";
-    console.log(userData.imageUrl);
+    // console.log(userData);
     if (userData.imageUrl != null && userData.imageUrl != "")
       profileImage = "http://localhost:8081/api/users/image/" + userData.id;
     return profileImage;
@@ -29,7 +29,7 @@ const Sidebar: React.FC = () => {
     reader.readAsDataURL(file);
     let formData = new FormData();
     formData.append("image", file);
-    console.log(formData);
+    // console.log(formData);
 
     await axios
       .post(
@@ -41,9 +41,10 @@ const Sidebar: React.FC = () => {
           },
         }
       )
-      .then((response) => {
+      .then(async (response) => {
         toast.success("Image Uploaded");
-        console.log(response.data);
+        // console.log(response.data);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         window.location.replace("/user/home");
       })
       .catch((error) => {

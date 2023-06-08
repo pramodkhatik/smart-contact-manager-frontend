@@ -50,7 +50,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
           <div
             className="cards"
             key={contact.id}
-            style={{ width: "430px", height: "200px", marginLeft: "1px" }}
+            style={{ width: "430px", height: "190px", marginLeft: "0.5px" }}
           >
             <div className="card-body">
               <div className="row">
@@ -94,7 +94,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                   <h6 style={{ paddingBottom: "5px" }}>
                     {" "}
                     <i className="fa fa-phone" aria-hidden="true"></i>{" "}
-                    {contact.countryExtension}{" "}{contact.phone}
+                    {contact.countryExtension} {contact.phone}
                   </h6>
                 </div>
               </div>

@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
             <div>
               <Sidebar />
             </div>
-            <div style={{ marginTop: "100px", marginLeft: "10px" }}>
+            <div style={{ marginTop: "60px" }}>
               <div className="main-content">
                 <MyCard searchValue={searchValue} />
               </div>

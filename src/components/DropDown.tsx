@@ -170,9 +170,9 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
                     }
                   />
                   <div className="image-confirmation-buttons">
-                    <button type="submit" className="btn btn-primary">
+                    {/* <button type="submit" className="btn btn-primary">
                       Upload
-                    </button>
+                    </button> */}
                     <button className="btn btn-secondary" onClick={closeImage}>
                       Cancel
                     </button>
