@@ -15,7 +15,6 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
   const [updateOpen, setUpdateOpen] = useState(false);
   const [imageUpload, setImageUpload] = useState(false);
   const [updatedContactData, setUpdatedContactData] = useState(contactData);
-  const [showDetails, setShowDetails] = useState(false);
 
   const openImage = () => {
     setImageUpload(true);
@@ -43,14 +42,6 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
 
   const closeUpdate = () => {
     setUpdateOpen(false);
-  };
-
-  const openDetails = () => {
-    setShowDetails(true);
-  };
-
-  const closeDetails = () => {
-    setShowDetails(false);
   };
 
   const handleInputChange = (
@@ -276,6 +267,7 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
                         <button
                           className="btn btn-secondary"
                           onClick={closeUpdate}
+                          style={{ marginLeft: "1rem" }}
                         >
                           Cancel
                         </button>
@@ -298,49 +290,13 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
                   >
                     Delete
                   </button>
-                  <button className="btn btn-secondary" onClick={closeDelete}>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={closeDelete}
+                    style={{ marginLeft: "1rem" }}
+                  >
                     Cancel
                   </button>
-                </div>
-              </div>
-            )}
-            <a onClick={openDetails}>More Info</a>
-            {showDetails && (
-              <div className="details-modal" ref={updatedContactData}>
-                <div className="details-box">
-                  <div className="row">
-                    <div className="col">
-                      <img
-                        src={getImage(contactData)}
-                        style={{ height: "200px" }}
-                      />
-                    </div>
-                    <div className="col">
-                      <div style={{ position: "fixed" }} onClick={closeDetails}>
-                        <i
-                          className="fa fa-times"
-                          style={{ marginLeft: "15rem", position: "fixed" }}
-                        />
-                      </div>
-                      <div style={{ marginTop: "2rem" }}>
-                        <h5>
-                          {contactData.name} ({contactData.secondName})
-                        </h5>
-                        <p style={{ fontWeight: "bold" }}>
-                          {contactData.designation}
-                        </p>
-                        {contactData.phone}
-                        <br />
-                        {contactData.email}
-                        <br />
-                        {contactData.work}
-                        <br />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col">{contactData.description}</div>
-                  </div>
                 </div>
               </div>
             )}

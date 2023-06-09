@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Card.css";
 import axios from "axios";
 import { getCurrentUser, getToken } from "../auth";
@@ -7,12 +7,42 @@ import Dropdown from "./DropDown";
 interface MyCardProp {
   searchValue: string;
 }
-const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
-  const [contacts, setContacts] = useState([]);
-  // const [selectContact, setSelectedContact] = useState([]);
-  const [filteredContacts, setFilteredContacts] = useState([]);
 
-  const getImage = (contact: any) => {
+interface Contact {
+  contactId: string;
+  name: string;
+  image: string;
+  work: string;
+  email: string;
+  countryExtension: string;
+  phone: string;
+}
+
+const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
+
+  const openDetails = (contactId: string) => {
+    setContacts((prevContacts) =>
+      prevContacts.map((contact) =>
+        contact.contactId === contactId
+          ? { ...contact, showDetails: true }
+          : contact
+      )
+    );
+  };
+
+  const closeDetails = (contactId: string) => {
+    setContacts((prevContacts) =>
+      prevContacts.map((contact) =>
+        contact.contactId === contactId
+          ? { ...contact, showDetails: false }
+          : contact
+      )
+    );
+  };
+
+  const getImage = (contact: Contact) => {
     let contactImage = window.location.origin + "/default.png";
     if (contact.image != null && contact.image != "")
       contactImage =
@@ -26,12 +56,15 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
         headers: { Authorization: `Bearer ${getToken()}` },
       })
       .then((result) => {
-        setContacts(result.data);
-        setFilteredContacts(result.data);
+        const fetchedContacts = result.data.map((contact: Contact) => ({
+          ...contact,
+          showDetails: false, // Initialize the showDetails property to false for each contact
+        }));
+        setContacts(fetchedContacts);
+        setFilteredContacts(fetchedContacts);
       })
       .catch((error) => console.log("Error fetching contacts:", error));
   }, []);
-  // console.log(contacts);
 
   useEffect(() => {
     const filteredResults = contacts.filter((contact) =>
@@ -40,21 +73,21 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
     setFilteredContacts(filteredResults);
   }, [searchValue, contacts]);
 
-  // useEffect(() => console.log(selectContact));
-
-  console.log(filteredContacts);
   return (
     <div className="card-container">
       {filteredContacts.length > 0 ? (
-        filteredContacts.map((contact, i) => (
+        filteredContacts.map((contact) => (
           <div
             className="cards"
-            key={contact.id}
+            key={contact.contactId}
             style={{ width: "430px", height: "190px", marginLeft: "0.5px" }}
           >
             <div className="card-body">
               <div className="row">
-                <div className="col-5">
+                <div
+                  className="col-5"
+                  onClick={() => openDetails(contact.contactId)}
+                >
                   <div className="image-content">
                     <img
                       src={getImage(contact)}
@@ -73,31 +106,76 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                   }}
                 >
                   <Dropdown contactData={contact} />
-                  <h6 style={{ paddingBottom: "5px", fontWeight: "bold" }}>
-                    {" "}
-                    <i className="fa fa-user-o" aria-hidden="true"></i>{" "}
-                    {contact.name}
-                  </h6>
+                  <div onClick={() => openDetails(contact.contactId)}>
+                    <h6 style={{ paddingBottom: "5px", fontWeight: "bold" }}>
+                      {" "}
+                      <i className="fa fa-user-o" aria-hidden="true"></i>{" "}
+                      {contact.name}
+                    </h6>
 
-                  <h6 style={{ paddingBottom: "5px" }}>
-                    {" "}
-                    <i className="fa fa-id-badge" aria-hidden="true"></i>{" "}
-                    {contact.work}
-                  </h6>
+                    <h6 style={{ paddingBottom: "5px" }}>
+                      {" "}
+                      <i className="fa fa-id-badge" aria-hidden="true"></i>{" "}
+                      {contact.work}
+                    </h6>
 
-                  <h6 style={{ paddingBottom: "5px" }}>
-                    {" "}
-                    <i className="fa fa-envelope" aria-hidden="true"></i>{" "}
-                    {contact.email}
-                  </h6>
+                    <h6 style={{ paddingBottom: "5px" }}>
+                      {" "}
+                      <i className="fa fa-envelope" aria-hidden="true"></i>{" "}
+                      {contact.email}
+                    </h6>
 
-                  <h6 style={{ paddingBottom: "5px" }}>
-                    {" "}
-                    <i className="fa fa-phone" aria-hidden="true"></i>{" "}
-                    {contact.countryExtension} {contact.phone}
-                  </h6>
+                    <h6 style={{ paddingBottom: "5px" }}>
+                      {" "}
+                      <i className="fa fa-phone" aria-hidden="true"></i>{" "}
+                      {contact.countryExtension} {contact.phone}
+                    </h6>
+                  </div>
                 </div>
               </div>
+              {contact.showDetails && (
+                <div className="details-modal">
+                  <div className="details-box">
+                    <div className="row">
+                      <div className="col">
+                        <img
+                          src={getImage(contact)}
+                          style={{ height: "200px" }}
+                          alt="User Avatar"
+                        />
+                      </div>
+                      <div className="col">
+                        <div
+                          style={{ position: "fixed" }}
+                          onClick={() => closeDetails(contact.contactId)}
+                        >
+                          <i
+                            className="fa fa-times"
+                            style={{ marginLeft: "15rem", position: "fixed" }}
+                          />
+                        </div>
+                        <div style={{ marginTop: "2rem" }}>
+                          <h5>
+                            {contact.name} ({contact.secondName})
+                          </h5>
+                          <p style={{ fontWeight: "bold" }}>
+                            {contact.designation}
+                          </p>
+                          {contact.phone}
+                          <br />
+                          {contact.email}
+                          <br />
+                          {contact.work}
+                          <br />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col">{contact.description}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ))
