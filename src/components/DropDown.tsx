@@ -118,14 +118,6 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
     }
   };
 
-  const getImage = (contact: any) => {
-    let contactImage = window.location.origin + "/default.png";
-    if (contact.image != null && contact.image != "")
-      contactImage =
-        "http://localhost:8081/api/contacts/image/" + contact.contactId;
-    return contactImage;
-  };
-
   return (
     <div>
       <div className="dropdown">
@@ -133,10 +125,10 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
           className="fa fa-ellipsis-v"
           aria-hidden="true"
           style={{
-            marginLeft: "10rem",
-            marginBottom: "2rem",
+            marginLeft: "13rem",
+            marginBottom: "5rem",
             cursor: "pointer",
-            position: "absolute",
+            position: "fixed",
           }}
           onClick={toggleDropdown}
         ></i>

@@ -73,6 +73,11 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
     setFilteredContacts(filteredResults);
   }, [searchValue, contacts]);
 
+  const getNikckName = (_nickName: string) => {
+    if (_nickName == "") return "";
+    else return "(" + _nickName + ")";
+  };
+
   return (
     <div className="card-container">
       {filteredContacts.length > 0 ? (
@@ -82,12 +87,12 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
             key={contact.contactId}
             style={{ width: "430px", height: "190px", marginLeft: "0.5px" }}
           >
-            <div className="card-body">
+            <div
+              className="card-body"
+              onClick={() => openDetails(contact.contactId)}
+            >
               <div className="row">
-                <div
-                  className="col-5"
-                  onClick={() => openDetails(contact.contactId)}
-                >
+                <div className="col-5">
                   <div className="image-content">
                     <img
                       src={getImage(contact)}
@@ -105,8 +110,7 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                     paddingTop: "15px",
                   }}
                 >
-                  <Dropdown contactData={contact} />
-                  <div onClick={() => openDetails(contact.contactId)}>
+                  <div>
                     <h6 style={{ paddingBottom: "5px", fontWeight: "bold" }}>
                       {" "}
                       <i className="fa fa-user-o" aria-hidden="true"></i>{" "}
@@ -133,7 +137,9 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                   </div>
                 </div>
               </div>
-              {contact.showDetails && (
+            </div>
+            {contact.showDetails && (
+              <>
                 <div className="details-modal">
                   <div className="details-box">
                     <div className="row">
@@ -145,23 +151,30 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                         />
                       </div>
                       <div className="col">
-                        <div
-                          style={{ position: "fixed" }}
+                        <div style={{ marginBottom: "1rem" }}>
+                          <Dropdown contactData={contact} />
+                        </div>
+                        {/* <div
+                          style={{ position: "fixed", marginBottom: "5rem" }}
                           onClick={() => closeDetails(contact.contactId)}
                         >
                           <i
                             className="fa fa-times"
-                            style={{ marginLeft: "15rem", position: "fixed" }}
+                            style={{
+                              marginLeft: "15rem",
+                              // marginBottom: "5rem",
+                              position: "fixed",
+                            }}
                           />
-                        </div>
-                        <div style={{ marginTop: "2rem" }}>
+                        </div> */}
+                        <div style={{ marginTop: "3rem" }}>
                           <h5>
-                            {contact.name} ({contact.secondName})
+                            {contact.name} {getNikckName(contact.secondName)}
                           </h5>
                           <p style={{ fontWeight: "bold" }}>
                             {contact.designation}
                           </p>
-                          {contact.phone}
+                          {contact.countryExtension} {contact.phone}
                           <br />
                           {contact.email}
                           <br />
@@ -173,10 +186,18 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
                     <div className="row">
                       <div className="col">{contact.description}</div>
                     </div>
+                    <div style={{ marginLeft: "30rem" }}>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => closeDetails(contact.contactId)}
+                      >
+                        Close
+                      </button>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
         ))
       ) : (
