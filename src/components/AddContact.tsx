@@ -24,7 +24,7 @@ const AddContact = () => {
     image: "",
     description: "",
     user: {},
-    countryExtension: ""
+    countryExtension: "",
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -114,8 +114,8 @@ const AddContact = () => {
 
   const handleChange = (
     event: React.ChangeEvent<
-    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-  >,
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
     property: string
   ) => {
     setFormData({ ...formData, [property]: event.target.value });
@@ -282,14 +282,18 @@ const AddContact = () => {
                         <div className="d-flex align-items-left mb-3">
                           <div className="form-outline flex-fill">
                             <label className="d-flex align-items-center">
-                              <i className="fa fa-phone fa-lg me-4 ms-2" 
-                              title="Contact Number"></i>
+                              <i
+                                className="fa fa-phone fa-lg me-4 ms-2"
+                                title="Contact Number"
+                              ></i>
                               <select
-                              id="countryExtension"
-                              className="form-select"
-                              value={formData.countryExtension}
-                              onChange={(e) => handleChange(e, "countryExtension")}
-                              style={{width:"80px"}}
+                                id="countryExtension"
+                                className="form-select"
+                                value={formData.countryExtension}
+                                onChange={(e) =>
+                                  handleChange(e, "countryExtension")
+                                }
+                                style={{ width: "80px", marginRight: "3px" }}
                               >
                                 <option value="+1">+1 (USA)</option>
                                 <option value="+44">+44 (UK)</option>
@@ -306,7 +310,7 @@ const AddContact = () => {
                               placeholder="Contact Number"
                               value={formData.phone}
                               onChange={(e) => handleChange(e, "phone")}
-                              style={{width:"224px"}}
+                              style={{ width: "219px" }}
                             />
                             {errors.phone && (
                               <span className="error-message">
