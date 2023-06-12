@@ -3,7 +3,6 @@ import "./DropDown.css";
 import { getToken } from "../auth";
 import { toast } from "react-toastify";
 import axios from "axios";
-import ContactDetails from "./ContactDetails";
 
 interface ContactDetails {
   contactData: any;
@@ -84,9 +83,10 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
   };
 
   const handleContactImageUpload = async (
-    event: { target: { files: any[] } },
+    event: React.ChangeEvent<HTMLInputElement>,
     contactId: any
   ) => {
+    if (!event.target.files) return;
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {

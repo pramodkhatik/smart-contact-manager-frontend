@@ -9,25 +9,25 @@ export const isLoggedIn = () => {
 };
 
 // do login
-export const doLogIn = (data, next) => {
+export const doLogIn = (data: string, next: { (): void; (): void; }) => {
   localStorage.setItem("data", JSON.stringify(data));
   next();
 };
 
 // do logout
-export const doLogOut = (next) => {
+export const doLogOut = () => {
   localStorage.removeItem("data");
   // next();
 };
 
 // get current user
 export const getCurrentUser = () => {
-  if (isLoggedIn) {
-    return JSON.parse(localStorage.getItem("data")).user;
+  if (isLoggedIn()) {
+    return JSON.parse(localStorage.getItem("data") || "{}").user;
   }
   return false;
 };
 
 export const getToken = () => {
-  return JSON.parse(localStorage.getItem("data")).token;
+  return JSON.parse(localStorage.getItem("data") || "{}").token;
 };

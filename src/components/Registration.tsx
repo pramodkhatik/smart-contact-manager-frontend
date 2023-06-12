@@ -101,6 +101,7 @@ const Registration = () => {
             window.location.replace("/register");
             // if(errorMessage.includes('Duplicate entry')){
           }
+          console.log(isRegistered);
         }
         setError({
           errors: error,

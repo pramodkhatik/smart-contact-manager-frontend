@@ -9,6 +9,7 @@ interface MyCardProp {
 }
 
 interface Contact {
+  [x: string]: any;
   contactId: string;
   name: string;
   image: string;

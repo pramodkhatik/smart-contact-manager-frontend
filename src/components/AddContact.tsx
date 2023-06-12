@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.min.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { getToken, getCurrentUser, doLogOut } from "../auth";
 import "./AddContact.css";

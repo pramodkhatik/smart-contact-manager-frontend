@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import { getCurrentUser, getToken } from "../auth";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ChangeEvent } from "react";
 
 const Sidebar: React.FC = () => {
   const userData = getCurrentUser();
@@ -18,7 +19,8 @@ const Sidebar: React.FC = () => {
 
   // const [image, setImage] = useState(profileImage);
 
-  const handleImageUpload = async (event: { target: { files: any[] } }) => {
+  const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
     const file = event.target.files[0];
     // console.log(event.target.files);
     const reader = new FileReader();
@@ -41,7 +43,7 @@ const Sidebar: React.FC = () => {
           },
         }
       )
-      .then(async (response) => {
+      .then(async () => {
         toast.success("Image Uploaded");
         // console.log(response.data);
         await new Promise((resolve) => setTimeout(resolve, 1500));

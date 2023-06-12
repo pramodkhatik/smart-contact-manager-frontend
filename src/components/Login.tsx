@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import "./Login.css";
 import { signIn } from "../services/user-service";
 import { toast } from "react-toastify";
-import { doLogIn } from "../auth/index";
+import { doLogIn } from "../auth";
 
 const Login = () => {
   const [loginDetail, setLoginDetail] = useState({
