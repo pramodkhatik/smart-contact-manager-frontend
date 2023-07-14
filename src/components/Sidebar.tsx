@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
     let profileImage = window.location.origin + "/default.png";
     // console.log(userData);
     if (userData.imageUrl != null && userData.imageUrl != "")
-      profileImage = "http://localhost:8081/api/users/image/" + userData.id;
+      profileImage = "http://172.30.85.94:8081/api/users/image/" + userData.id;
     return profileImage;
   };
 
@@ -35,7 +35,7 @@ const Sidebar: React.FC = () => {
 
     await axios
       .post(
-        "http://localhost:8081/api/users/image/upload/" + userData.id,
+        "http://172.30.85.94:8081/api/users/image/upload/" + userData.id,
         formData,
         {
           headers: {

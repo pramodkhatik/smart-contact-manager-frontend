@@ -56,7 +56,7 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
 
   const handleUpdate = async (updatedData: any) => {
     await axios
-      .post("http://localhost:8081/api/contacts", updatedData, {
+      .post("http://172.30.85.94:8081/api/contacts", updatedData, {
         headers: { Authorization: `Bearer ${getToken()}` },
       })
       .then((response) => console.log(response.data))
@@ -71,7 +71,7 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
 
   const handleDelete = async () => {
     await axios
-      .delete(`http://localhost:8081/api/contacts/${contactData.contactId}`, {
+      .delete(`http://172.30.85.94:8081/api/contacts/${contactData.contactId}`, {
         headers: { Authorization: `Bearer ${getToken()}` },
       })
       .catch((error: any) => console.log(error));
@@ -102,7 +102,7 @@ const DropDown: React.FC<ContactDetails> = ({ contactData }) => {
 
     try {
       await axios.post(
-        `http://localhost:8081/api/contacts/image/upload/${contactId}`,
+        `http://172.30.85.94:8081/api/contacts/image/upload/${contactId}`,
         formData,
         {
           headers: {

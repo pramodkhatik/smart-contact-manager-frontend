@@ -98,7 +98,7 @@ const AddContact = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/contacts",
+        "http://172.30.85.94:8081/api/contacts",
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

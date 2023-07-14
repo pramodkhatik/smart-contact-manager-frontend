@@ -47,13 +47,13 @@ const MyCard: React.FC<MyCardProp> = ({ searchValue }) => {
     let contactImage = window.location.origin + "/default.png";
     if (contact.image != null && contact.image != "")
       contactImage =
-        "http://localhost:8081/api/contacts/image/" + contact.contactId;
+        "http://172.30.85.94:8081/api/contacts/image/" + contact.contactId;
     return contactImage;
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/api/contacts/users/" + getCurrentUser().id, {
+      .get("http://172.30.85.94:8081/api/contacts/users/" + getCurrentUser().id, {
         headers: { Authorization: `Bearer ${getToken()}` },
       })
       .then((result) => {
