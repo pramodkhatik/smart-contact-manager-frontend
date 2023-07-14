@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import "./Login.css";
 import { signIn } from "../services/user-service";
 import { toast } from "react-toastify";
-import { doLogIn } from "../auth";
+import { doLogIn } from "../auth/index";
 
 const Login = () => {
   const [loginDetail, setLoginDetail] = useState({
@@ -14,7 +14,7 @@ const Login = () => {
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
     field: any
   ) => {
-    let actualValue = event.target.value;
+    const actualValue = event.target.value;
     setLoginDetail({ ...loginDetail, [field]: actualValue });
   };
 
@@ -24,7 +24,9 @@ const Login = () => {
 
     signIn(loginDetail)
       .then(async (data: string) => {
-        doLogIn(data, () => {});
+        doLogIn(data, () => {
+          console.log(data);
+        });
         toast.success("Logged In");
         await new Promise((resolve) => setTimeout(resolve, 1500));
         window.location.replace("/user/home");

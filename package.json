@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "src/index.tsx",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "react-scripts build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "serve": "npx serve -s build -l 5173"
   },
   "dependencies": {
     "@types/react-router": "^5.1.20",
@@ -17,7 +17,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
-    "react-toastify": "^9.1.3"
+    "react-toastify": "^9.1.3",
+    "server": "^1.0.38"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
@@ -28,8 +29,21 @@
     "eslint": "^8.38.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "react-scripts": "^5.0.1",
     "tsc-alias": "^1.8.6",
-    "typescript": "^5.0.2",
+    "typescript": "^3.2.1",
     "vite": "^4.3.8"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

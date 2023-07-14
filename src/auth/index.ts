@@ -1,6 +1,6 @@
 // check authentication
 export const isLoggedIn = () => {
-  let data = localStorage.getItem("data");
+  const data = localStorage.getItem("data");
   if (data == null) {
     return false;
   } else {
@@ -9,7 +9,7 @@ export const isLoggedIn = () => {
 };
 
 // do login
-export const doLogIn = (data: string, next: { (): void; (): void; }) => {
+export const doLogIn = (data: string, next: { (): void; (): void }) => {
   localStorage.setItem("data", JSON.stringify(data));
   next();
 };

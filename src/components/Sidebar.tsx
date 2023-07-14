@@ -29,7 +29,7 @@ const Sidebar: React.FC = () => {
       // console.log(file.name);
     };
     reader.readAsDataURL(file);
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("image", file);
     // console.log(formData);
 
